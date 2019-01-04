@@ -588,8 +588,18 @@ int main(int argc, char *argv[]) {
     mvwprintw(titleWin, 5, 0, " \\ V / -_) \'_(_-</ -_) \' \\| / / -_) \' \\");
     mvwprintw(titleWin, 6, 0, "  \\_/\\___|_| /__/\\___|_||_|_\\_\\___|_||_|");
 
-    if (is_client) mvwprintw(titleWin, 8, 0, "Client - server at %s:%d", server_ip, port);
-    if (is_server) mvwprintw(titleWin, 8, 0, "Server - port %d", port);
+    if (is_client) mvwprintw(titleWin, 8, 0, "Client");
+    if (is_server) {
+        char hostbuffer[256];
+        struct hostent *host_entry;
+        gethostname(hostbuffer, sizeof(hostbuffer));
+        host_entry = gethostbyname(hostbuffer);
+        server_ip = inet_ntoa(*((struct in_addr*) host_entry->h_addr_list[0]));
+
+        mvwprintw(titleWin, 8, 0, "Server (%s:%d)", server_ip, port);
+
+        //mvwprintw(titleWin, 8, 0, "Server - port %d", port);
+    }
     if (against_computer) mvwprintw(titleWin, 8, 0, "playing against the computer (N.A.)");
 
 
@@ -737,7 +747,7 @@ int main(int argc, char *argv[]) {
              wrefresh(informationWin);
          }
          else {
-             wprintw(titleWin, " (client connected)");
+             wprintw(titleWin, " connected");
              wrefresh(titleWin);
          }
      }
@@ -752,6 +762,10 @@ int main(int argc, char *argv[]) {
              //perror ("connect()");
              mvwprintw(informationWin, 3, 2, "Error on connect()");
              wrefresh(informationWin);
+         }
+         else {
+             wprintw(titleWin, " (connected: %s:%d)", server_ip, port);
+             wrefresh(titleWin);
          }
      }
 
