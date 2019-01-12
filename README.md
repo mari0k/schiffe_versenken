@@ -1,30 +1,29 @@
 # Schiffe Versenken
 
-* this program uses ncurses for graphical output
-* compile using `gcc` with option `-lncurses`
+This program uses `ncurses` for graphical output. When compiling make sure you have `ncurses` installed.
 
 ### Multiplayer
 
 * Communication over TCP
 * one Player needs to act as a server
 ```
-./schiffe_versenken 51234
+./sea_battle 51234
 ```
-where `51234` is the Port number (smaller than 65535 and preferably bigger than 49152)
+where `51234` is the Port number (between 49152 and 65535)
 * the other Player acts as a client
 ```
-./schiffe_versenken "123.456.789.123" 51234
-``` 
+./sea_battle "123.456.789.123" 51234
+```
 where `123.456.789.123` is the IP address of the server and `51234` the Port number the server opened
 
 ### Singleplayer
 
 not yet implemented
 ```
-./schiffe_versenken
+./sea_battle
 ```
 
 
 ### Note
 
-code is pretty dirty...
+This is just a fun little project. There is no guarantee that everything will function 100%.

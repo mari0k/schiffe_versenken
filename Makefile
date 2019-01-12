@@ -1,4 +1,14 @@
-all: schiffe
+all: sea_battle
 
-schiffe: schiffe_versenken.c
-	gcc -lncurses schiffe_versenken.c -o schiffe_versenken
+sea_battle: main.o ui.o tcp.o
+	gcc -o sea_battle main.o ui.o tcp.o -lncurses
+
+
+main.o: main.c
+	gcc -c main.c
+
+ui.o: ui.c
+	gcc -c ui.c
+
+tcp.o: tcp.c
+	gcc -c tcp.c
