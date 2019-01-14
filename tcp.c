@@ -126,7 +126,7 @@ int connect_to_server(int sock, char *server_ip, int port) {
 }
 
 int send_name(int sock, char *name) {
-    if (send(sock, name, 21, 0) < 0) {
+    if (send(sock, name, 21, 0) <= 0) {
         tcp_msg("ERROR sending name.");
         notify("There was a communication error. This may be due to your opponent leaving the game.");
         return -1;
@@ -135,7 +135,7 @@ int send_name(int sock, char *name) {
 }
 
 int recv_name(int sock, char *name) {
-    if (recv(sock, name, 21, 0) < 0) {
+    if (recv(sock, name, 21, 0) <= 0) {
         tcp_msg("ERROR receiving name.");
         notify("There was a communication error. This may be due to your opponent leaving the game.");
         return -1;
@@ -146,7 +146,7 @@ int recv_name(int sock, char *name) {
 int send_int(int sock, unsigned char *buf, int num) {
     int pos = 0;
     write_int(buf, &pos, num);
-    if (send(sock, buf, pos, 0) < 0) {
+    if (send(sock, buf, pos, 0) < 4) {
         tcp_msg("ERROR sending int.");
         notify("There was a communication error. This may be due to your opponent leaving the game.");
         return -1;
@@ -155,7 +155,7 @@ int send_int(int sock, unsigned char *buf, int num) {
 }
 
 int recv_int(int sock, unsigned char *buf, int *num) {
-    if (recv(sock, buf, 4, 0) < 0) {
+    if (recv(sock, buf, 4, 0) < 4) {
         tcp_msg("ERROR receiving int.");
         notify("There was a communication error. This may be due to your opponent leaving the game.");
         return -1;
@@ -169,7 +169,7 @@ int send_coord(int sock, unsigned char *buf, struct coord *coord) {
     int pos = 0;
     write_int(buf, &pos, coord->y);
     write_int(buf, &pos, coord->x);
-    if (send(sock, buf, pos, 0) < 0) {
+    if (send(sock, buf, pos, 0) < 8) {
         tcp_msg("ERROR sending position.");
         notify("There was a communication error. This may be due to your opponent leaving the game.");
         return -1;
@@ -178,7 +178,7 @@ int send_coord(int sock, unsigned char *buf, struct coord *coord) {
 }
 
 int recv_coord(int sock, unsigned char *buf, struct coord *coord) {
-    if (recv(sock, buf, 8, 0) < 0) {
+    if (recv(sock, buf, 8, 0) < 8) {
         tcp_msg("ERR receiving position.");
         notify("There was a communication error. This may be due to your opponent leaving the game.");
         return -1;

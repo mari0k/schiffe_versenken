@@ -677,7 +677,7 @@ void tcp_msg(char *message) {
 }
 
 void notify(char *message) {
-    WINDOW *notification = newwin(14, 41, 28, 3);
+    WINDOW *notification = newwin(14, 42, 28, 2);
     wbkgd(notification, COLOR_PAIR(MISS));
     refresh();
     mvwprintw(notification, 3, 0, message);
