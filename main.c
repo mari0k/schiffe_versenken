@@ -328,7 +328,7 @@ int main(int argc, char *argv[]) {
     struct move move = { .old = (struct coord) { .y = 0, .x = 0 }, .new = (struct coord) { .y = 0, .x = 0 } };
 
     // place ships one by one
-    for (int k = 0; k < 1; k++) {
+    for (int k = 0; k < 7; k++) {
         highlight_position(ownFieldWin, &(move.old), ownField, 1);
         int res;
         res = anchor_ship(ownFieldWin, ownField, informationWin, &(own_ships[k]), &move);
